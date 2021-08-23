@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>游戏充值</title>
+		<link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="static/layer/theme/default/layer.css">
+		<link rel="stylesheet" href="static/custom.css">
+		<style type="text/css"></style>
+	</head>
+	<body>
+		<div id="loading-layer" style="position: absolute;z-index:2147483647;background-color: #ffffff;width: 100%;height:100vh;">
+			<div id="loading-icon"></div>
+		</div>
+		<nav id="topNavBar" class="navbar navbar-default navbar-light fixed-top box-shadow--6dp" style="padding:3px; background-image: linear-gradient(0deg, #dadada 0%, #f1f1f1 50%,#ffffff 100%);">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">游戏商城</a>
+					<span>
+						当前剩余点数：<span class="h6 text-danger" id="totalPoint">0</span>
+						&nbsp;点</span>
+				</div>
+				<div class="nav navbar-nav navbar-right">
+					<table>
+						<tbody>
+							<tr>
+								<td style="padding-right:20px">
+									<div>
+										<span>
+											本次合计：<span class="h6 text-success" id="totalMoney">0</span>
+											&nbsp;元</span>
+									</div>
+								</td>
+								<td>
+									<button id="payNow" class="btn btn-success" type="button">立即支付</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</nav>
+		<div class="container-fluid" style="padding-top:50px">
+			<div class="row">
+				<div class="tab-content">
+					<div class="tab-pane show active" id="tab1">
+						<span>请选择购买类型</span>
+						<div id="payType" class="row justify-content-center">
+							<div class="col-sm-3 col-lg-3 pay-card">
+								<div id="payBtn1" class="col-sm-12 btn btn-outline-primary active btn-pay-block" data-type="1">
+									<h2>
+										<span class="badge bg-secondary">1000游戏点</span>
+									</h2>
+									<div class="p-2">
+										￥ <span class="h1">100</span>
+										.00</div>
+									<h6>账户余额充值1000点</h6>
+									<!--                                 <p class="text-muted mb-0">每12个月计费</p> -->
+								</div>
+							</div>
+							<div id="divPayType2" class="col-sm-3 col-lg-3 pay-card" style="display:none">
+								<div id="payBtn2" class="col-sm-12 btn btn-outline-primary btn-pay-block" data-type="2">
+									<h2>
+										<span class="badge bg-warning">2000游戏点</span>
+									</h2>
+									<div class="p-2">
+										￥ <span class="h1">200</span>
+										.00</div>
+									<h6>账户余额充值2000点</h6>
+									<!--                                 <p class="text-muted mb-0">每6个月计费</p> -->
+								</div>
+							</div>
+							<div id="divPayType4" class="col-sm-3 col-lg-3 pay-card" style="display:none">
+								<div id="payBtn4" class="col-sm-12 btn btn-outline-primary btn-pay-block" data-type="4">
+									<h2>
+										<span class="badge bg-warning">普通会员</span>
+									</h2>
+									<div class="p-2">
+										￥ <span class="h1">100</span>
+										.00</div>
+									<h6>990游戏点</h6>
+									<p class="text-muted mb-0">开通普通会员</p>
+								</div>
+							</div>
+							<div id="divPayType5" class="col-sm-3 col-lg-3 pay-card">
+								<div id="payBtn5" class="col-sm-12 btn btn-outline-primary btn-pay-block" data-type="5">
+									<h2>
+										<span class="badge bg-danger">超级会员</span>
+									</h2>
+									<div class="p-2">
+										￥ <span class="h1">200</span>
+										.00</div>
+									<!--                                 <h5>
+                                    <del class="pr-2 text-danger" id="yj3">¥ 114</del>
+                                    节省 ¥ <span id="js3">6</span>
+                                </h5> -->
+                                <h6>990游戏点</h6>
+									<h6>开通超级会员</h6>
+									<!-- <p class="text-muted mb-0">每31个月计费</p> -->
+								</div>
+							</div>
+							<div id="divPayType3" class="col-sm-3 col-lg-3 pay-card">
+								<div id="payBtn3" class="col-sm-12 btn btn-outline-primary btn-pay-block" data-type="3">
+									<h2>
+										<span class="badge bg-danger">超级会员</span>
+									</h2>
+									<div class="p-2">
+										￥ <span class="h1">100</span>
+										.00</div>
+									<!--                                 <h5>
+                                    <del class="pr-2 text-danger" id="yj3">¥ 114</del>
+                                    节省 ¥ <span id="js3">6</span>
+                                </h5> -->
+									<h6>升级超级会员<br />享受无码体验
+                                </h6>
+									<!-- <p class="text-muted mb-0">每31个月计费</p> -->
+								</div>
+							</div>
+						</div>
+						游戏充值说明
+						<ul>
+<li>1点券等于0.1元人民币，HS2点券为游戏内流通货币，可用于购买游戏内所有物品。</li>
+<li>开通普通会员新人首月仅需10点券（1元/月），从次月起每月100点券（10元/月）。</li>
+<li>升级超级会员可享受永久无码体验，超级会员在会员有效期内永久有效，更多特权陆续开放中。</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="payResultModal" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">订单详情</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<table id="orderDetail">
+								<tbody>
+									<tr>
+										<td style="width:90px">订单编号：</td>
+										<td class="text-start">
+											<span class="h6 text-primary" id="od_orderId">0</span>
+										</td>
+									<tr>
+										<td style="width:90px">订单状态：</td>
+										<td class="text-start">
+											<span class="h6 text-danger" id="od_orderState">未支付</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="payOkay" class="btn btn-secondary" data-bs-dismiss="modal">取消订单</button>
+						<!-- 						<button id="doPay" type="button" class="btn btn-primary">确定</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="static/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="static/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script type="text/javascript" src="static/layer/layer.js"></script>
+		<script src="js/chat.js"></script>
+		<script>
+		 var extParams = ''/*!!!params*/;
+		 </script>
+		 <script type="text/javascript" src="js/pay.js"></script>
+	</body>
+</html>

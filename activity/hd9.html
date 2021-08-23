@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>玩家首页</title>
+		<link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="static/layer/theme/default/layer.css">
+		<link rel="stylesheet" href="static/custom.css">
+		<style type="text/css"></style>
+	</head>
+	<body style="overflow:hidden;overflow-y:hidden;">
+	    <div id="loading-layer" style="position: absolute;z-index:2147483647;background-color: #ffffff;width: 100%;height:100vh;">
+			<div id="loading-icon"></div>
+		</div>
+	<a id="shareImg"><img style="width:100%;heigth:100vh" src="hd/hd8.jpg" /></a>
+	<a id="returnGame" href="javascript:window.app.close();" class="btn btn-warning" style="position:fixed;right:10px;top:5px" >返回游戏</a>
+	<a id="getNow" class="btn btn-primary" style="position:fixed;top:5px;right:110px" >立即兑换</a>
+	<a id="shareNow" class="btn btn-success" style="position:fixed;top:5px;right:210px;" >立即分享</a>
+	<script src="static/jquery/jquery.min.js"></script>
+	<script src="static/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="static/layer/layer.js"></script>
+	<script src="js/load.js"></script>
+	<script>
+		$(document).ready(function() {
+		    var app = window.app;
+		    if (!app){
+		        $("#loading-layer").hide();
+		        dyloadPage("affiliate.html",document,'ingame');  
+		        return;
+		    }
+		    var ret = app.remoteCall(1005, '' + app.getParentChannelId());
+			$("#loading-layer").hide();
+ 			if (!ret) {
+ 				dyloadPage("affiliate.html",document,'ingame');  
+ 				return;
+ 			}
+ 			var retObj = JSON.parse(ret);
+ 			if (!(retObj.result > 0)) {
+ 				dyloadPage("affiliate.html",document,'ingame');  
+ 				return;
+ 			}
+ 			$("#shareImg").click(function(){
+ 			    dyloadPage("affiliate.html",document,'ingame');  
+ 			});
+ 			$("#shareNow").click(function(){
+ 			    dyloadPage("affiliate.html",document,'ingame');  
+ 			});
+ 
+ 			$("#getNow").click(function(){
+ 			    if (retObj.point < 5){
+ 			        layer.msg("您的积分不足，请先进行分享吧！");
+ 			        return;
+ 			    }
+ 			    layer.msg("处理中，请稍后...");
+ 			    setTimeout(function() {
+      			   var cardId = ''/*!!!params*/;
+      			   var robj = app.remoteCall(1019,cardId + "," + app.getActiveCode());
+      			   if (!robj){
+      			       layer.msg("兑换卡片失败");
+      			       return;
+      			   }
+      			   var rjson = JSON.parse(robj);
+      			   switch (rjson.status) {
+      			       case 1:
+                            layer.msg("该卡片不是活动卡片");
+      			           break;
+      			       case 2:
+ 			                layer.msg("您的积分不足，赶快去分享增加积分吧！");
+ 			            break;
+ 			            case 3:
+ 			                layer.msg("该物品不存在，或已下架。");
+      			       case 4:
+      			           layer.msg("您已经拥有该卡片，无需再次兑换。");
+      			           break;
+      			       case 6:
+      			           layer.alert(rjson.msg);
+      			           break;
+      			       default:
+      			        layer.msg(rjson.msg);
+      			        break;
+      			   }
+	        
+ 			    }, 10);
+
+ 			});
+		});
+
+	</script>
+	</body>
+	
+</html>
